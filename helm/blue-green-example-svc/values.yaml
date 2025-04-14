@@ -1,0 +1,5 @@
+# must be the same appName as in blue-green-example chart
+appName: "blue-green-example"
+port: 8080
+
+routeToColor: ""

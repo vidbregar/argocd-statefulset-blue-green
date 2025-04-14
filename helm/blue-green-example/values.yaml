@@ -1,0 +1,7 @@
+# must be the same appName as in blue-green-example-svc chart
+appName: "blue-green-example"
+color: ""
+
+port: 8080
+
+replicas: 2

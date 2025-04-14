@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "example.name" . }}
+  labels:
+    {{- include "example.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "example.name" . }}
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{- include "example.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "example.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: example
+          image: alpine:latest
+          command:
+            - "sh"
+            - "-c"
+            - "while true; do (echo -e 'HTTP/1.1 200 OK\r\n'; echo -e \"Hello from $COLOR\") | nc -lp $PORT; done"
+          env:
+            - name: COLOR
+              value: {{ .Values.color }}
+            - name: PORT
+              value: {{ .Values.port | quote }}
+          ports:
+            - containerPort: {{ .Values.port }}
+          volumeMounts:
+            - name: example
+              mountPath: /mnt/example
+  volumeClaimTemplates:
+    - metadata:
+        name: example
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

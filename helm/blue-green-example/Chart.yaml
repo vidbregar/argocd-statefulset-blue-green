@@ -1,0 +1,7 @@
+apiVersion: v2
+name: blue-green-example
+description: Blue green example
+
+type: application
+version: 2.0.0
+appVersion: "2.0.0"
