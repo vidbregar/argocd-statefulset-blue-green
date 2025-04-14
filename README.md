@@ -1,0 +1,1 @@
+# argocd-statefulset-blue-green
